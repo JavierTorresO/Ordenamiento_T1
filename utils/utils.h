@@ -10,4 +10,7 @@ bool is_sorted(int* A, int n);
 // Medidor de tiempo
 double measure_time(void (*sort_func)(int*, int), int* A, int n);
 
+// Merge
+void merge(int* A, int l, int mid, int r);
+
 #endif

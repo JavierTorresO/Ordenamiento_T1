@@ -1,32 +1,6 @@
 #include "mergesort.h"
 #include <vector>
-
-// Función merge auxiliar, combina 2 subarreglos ordenados
-void merge(int* A, int l, int mid, int r) {
-    int n1 = mid - l + 1; //subarreglo izq
-    int n2 = r - mid;  //subarreglo der
-
-    std::vector<int> L(n1), R(n2); //vector aux, para copiar datos
-    //copiarlos al arreglo izq (L=left)
-    for (int i = 0; i < n1; i++)
-        L[i] = A[l + i];
-    //copiarlo al arreglo der (D=right)
-    for (int j = 0; j < n2; j++)
-        R[j] = A[mid + 1 + j];
-
-    int i = 0, j = 0, k = l;
-    //merge de ambos en orden
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            A[k++] = L[i++];//toma del lado izq
-        } else {
-            A[k++] = R[j++];//o der
-        }
-    }
-    //se copia todo lo que pudo llegar a sobrar en izq y der
-    while (i < n1) A[k++] = L[i++];
-    while (j < n2) A[k++] = R[j++];
-}
+#include "utils/utils.h"
 
 // FUNCIÓN PRINCIPAL: recursión
 void mergesort_rec(int* A, int l, int r) {

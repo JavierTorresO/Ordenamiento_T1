@@ -4,38 +4,61 @@
 
 #include "utils/utils.h"
 #include "algoritmos/mergesort.h"
+#include "algoritmos/kway.h"
 
 int main() {
     srand(42); //se fija semilla(resultado reproductible)
 
-    int n = 20; //elementos del arreglo (ejemplo)
+    int n = 10000; //elementos del arreglo (ejemplo)
+    int k= 4; //para el kway
+
     int* A = new int[n];//se reserva memoria para el arreglo A
+    int* B = new int[n];//otro arreglo B
 
     generate_array(A, n);
-
-    printf("Antes (arreglo original):\n");
+    // copiar A en B
     for (int i = 0; i < n; i++) {
-        printf("%d ", A[i]);
+        B[i] = A[i];
     }
-    printf("\n");
+    // A y B tendrán igual entrada, hace comparación mas justa
 
-    double t = measure_time(mergesort, A, n);
-
-    printf("Despues:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", A[i]);
-    }
-    printf("\n");
+    // -----------------------------
+    // MERGESORT CLÁSICO
+    // -----------------------------
+    double t1 = measure_time(mergesort, A, n);
 
     if (is_sorted(A, n)) {
-        printf("OK: ordenado\n");
+        printf("Mergesort OK\n");
     } else {
-        printf("ERROR\n");
+        printf("Mergesort ERROR\n");
     }
 
-    printf("Tiempo: %f segundos\n", t);
+    printf("Tiempo mergesort: %f segundos\n\n", t1);
 
-    delete[] A;//liberar memoria
+    // -----------------------------
+    // K-WAY MERGESORT
+    // -----------------------------
+    double t2 = measure_time(
+        [](int* arr, int size) {
+            kway_mergesort(arr, size, 4); // cambiar k aquí
+        },
+        B,
+        n
+    );
+
+    if (is_sorted(B, n)) {
+        printf("K-way mergesort OK\n");
+    } else {
+        printf("K-way mergesort ERROR\n");
+    }
+
+    printf("Tiempo k-way (k=%d): %f segundos\n", k, t2);
+
+    // -----------------------------
+    // LIMPIEZA
+    // -----------------------------
+    delete[] A;
+    delete[] B;
 
     return 0;
 }
