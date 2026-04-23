@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -O3 -fopenmp -I.
 
-SRC = main.cpp utils/utils.cpp algoritmos/mergesort.cpp
+SRC = main.cpp utils/utils.cpp algoritmos/mergesort.cpp algoritmos/kway.cpp paralelismo/kway_paralelo.cpp
 
 all:
 	$(CXX) $(CXXFLAGS) $(SRC) -o sort
