@@ -9,6 +9,7 @@ SRC = main.cpp \
 	paralelismo/mergesort_paralelo.cpp
 
 TARGET = sort
+SRC = main.cpp utils/utils.cpp algoritmos/mergesort.cpp algoritmos/kway.cpp paralelismo/kway_paralelo.cpp
 
 all:
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)

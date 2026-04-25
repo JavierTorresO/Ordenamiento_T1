@@ -11,6 +11,7 @@
 #include "paralelismo/merge_paralelo.h"
 #include "paralelismo/mergesort_paralelo.h"
 #include "utils/utils.h"
+#include "paralelismo/kway_paralelo.h"
 
 struct Metric {
     int threads;
@@ -38,6 +39,20 @@ std::vector<Metric> benchmark_threads(
         omp_set_num_threads(threads);
         double total_elapsed = 0.0;
         bool ok = true;
+    int n = 100000; // Aumentado para notar paralelismo
+    int k = 4; //para el kway
+
+    int* A = new int[n];//se reserva memoria para el arreglo A
+    int* B = new int[n];//otro arreglo B
+    int* C = new int[n];//para el paralelo
+
+    generate_array(A, n);
+    // copiar A en B y C
+    for (int i = 0; i < n; i++) {
+        B[i] = A[i];
+        C[i] = A[i];
+    }
+    // A, B y C tendrán igual entrada, hace comparación mas justa
 
         for (int rep = 0; rep < repetitions; ++rep) {
             std::vector<int> input = prepare_input(base_data);
@@ -182,6 +197,33 @@ int main(int argc, char** argv) {
     print_metrics("Mergesort paralelo", mergesort_results);
     print_metrics("K-way mergesort paralelo", kway_results);
     print_metrics("Version paralela completa", full_results);
+    printf("Tiempo k-way (k=%d): %f segundos\n\n", k, t2);
+
+    // -----------------------------
+    // K-WAY MERGESORT PARALELO
+    // -----------------------------
+    double t3 = measure_time(
+        [](int* arr, int size) {
+            kway_mergesort_paralelo(arr, size, 4);
+        },
+        C,
+        n
+    );
+
+    if (is_sorted(C, n)) {
+        printf("K-way mergesort PARALELO OK\n");
+    } else {
+        printf("K-way mergesort PARALELO ERROR\n");
+    }
+
+    printf("Tiempo k-way PARALELO (k=%d): %f segundos\n", k, t3);
+
+    // -----------------------------
+    // LIMPIEZA
+    // -----------------------------
+    delete[] A;
+    delete[] B;
+    delete[] C;
 
     return 0;
 }
