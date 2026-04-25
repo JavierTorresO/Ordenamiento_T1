@@ -1,10 +1,17 @@
 CXX = g++
 CXXFLAGS = -O3 -fopenmp -I.
 
-SRC = main.cpp utils/utils.cpp algoritmos/mergesort.cpp
+SRC = main.cpp \
+	utils/utils.cpp \
+	algoritmos/mergesort.cpp \
+	algoritmos/kway.cpp \
+	paralelismo/merge_paralelo.cpp \
+	paralelismo/mergesort_paralelo.cpp
+
+TARGET = sort
 
 all:
-	$(CXX) $(CXXFLAGS) $(SRC) -o sort
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
 
 clean:
-	rm -f sort
+	rm -f $(TARGET) $(TARGET).exe

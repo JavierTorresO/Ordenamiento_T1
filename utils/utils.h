@@ -5,7 +5,7 @@
 void generate_array(int* A, int n); 
 
 // Verificador si está ordenado o no
-bool is_sorted(int* A, int n);
+bool is_sorted(const int* A, int n);
 
 // Medidor de tiempo
 double measure_time(void (*sort_func)(int*, int), int* A, int n);

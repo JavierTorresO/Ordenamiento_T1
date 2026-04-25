@@ -11,7 +11,7 @@ void generate_array(int* A, int n) {
 } //arreglo A de tamaño n, con numeros random(entre 0 y 999999)
 
 //Verificador de ordenamiento (de menor a mayor)
-bool is_sorted(int* A, int n) {
+bool is_sorted(const int* A, int n) {
     for (int i = 1; i < n; i++) {
         if (A[i] < A[i - 1]) return false;
     }
