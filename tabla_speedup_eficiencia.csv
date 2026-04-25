@@ -1,0 +1,9 @@
+Algoritmo,Hilos,Tiempo_s,Speedup,Eficiencia
+Par_Mergesort,1,1.553159,1.0000,1.0000
+Par_Mergesort,2,0.825114,1.8824,0.9412
+Par_Mergesort,4,0.525229,2.9571,0.7393
+Par_Mergesort,8,0.402602,3.8578,0.4822
+Full_Paralelo,1,2.056051,1.0000,1.0000
+Full_Paralelo,2,1.066605,1.9277,0.9638
+Full_Paralelo,4,0.579048,3.5507,0.8877
+Full_Paralelo,8,0.409651,5.0190,0.6274
