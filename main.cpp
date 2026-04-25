@@ -39,20 +39,6 @@ std::vector<Metric> benchmark_threads(
         omp_set_num_threads(threads);
         double total_elapsed = 0.0;
         bool ok = true;
-    int n = 100000; // Aumentado para notar paralelismo
-    int k = 4; //para el kway
-
-    int* A = new int[n];//se reserva memoria para el arreglo A
-    int* B = new int[n];//otro arreglo B
-    int* C = new int[n];//para el paralelo
-
-    generate_array(A, n);
-    // copiar A en B y C
-    for (int i = 0; i < n; i++) {
-        B[i] = A[i];
-        C[i] = A[i];
-    }
-    // A, B y C tendrán igual entrada, hace comparación mas justa
 
         for (int rep = 0; rep < repetitions; ++rep) {
             std::vector<int> input = prepare_input(base_data);
@@ -106,6 +92,7 @@ int main(int argc, char** argv) {
     const int k = argc > 2 ? std::atoi(argv[2]) : 4;
     const int granularity = argc > 3 ? std::atoi(argv[3]) : 4096;
     const int repetitions = argc > 4 ? std::atoi(argv[4]) : 3;
+    const int mode = argc > 5 ? std::atoi(argv[5]) : 0; // 0: All, 1: Seq Mergesort, 2: Seq K-way, 3: Par Merge, 4: Par Mergesort, 5: Par K-way, 6: Full
 
     omp_set_dynamic(0);
     std::srand(42);
@@ -113,117 +100,78 @@ int main(int argc, char** argv) {
     std::vector<int> base_data(n);
     generate_array(base_data.data(), n);
 
-    std::printf("n = %d, k = %d, granularidad = %d, repeticiones = %d\n\n", n, k, granularity, repetitions);
-
-    std::vector<int> serial_merge = base_data;
-    const double serial_mergesort_time = measure_time(mergesort, serial_merge.data(), n);
-    std::printf(
-        "Mergesort secuencial: %.6f s (%s)\n",
-        serial_mergesort_time,
-        is_sorted(serial_merge.data(), n) ? "OK" : "ERROR"
-    );
-
-    std::vector<int> serial_kway = base_data;
-    const auto serial_kway_start = std::chrono::high_resolution_clock::now();
-    kway_mergesort(serial_kway.data(), n, k);
-    const auto serial_kway_end = std::chrono::high_resolution_clock::now();
-    const double serial_kway_time = std::chrono::duration<double>(serial_kway_end - serial_kway_start).count();
-    std::printf(
-        "K-way secuencial: %.6f s (%s)\n\n",
-        serial_kway_time,
-        is_sorted(serial_kway.data(), n) ? "OK" : "ERROR"
-    );
-
-    const std::vector<int> thread_values = {1, 2, 4, 8};
+    if (mode == 0) {
+        std::printf("n = %d, k = %d, granularidad = %d, repeticiones = %d\n\n", n, k, granularity, repetitions);
+    }
 
     auto sorted_check = [](const std::vector<int>& data) {
         return is_sorted(data.data(), static_cast<int>(data.size()));
     };
 
-    const auto merge_prepare = [n](const std::vector<int>& data) {
-        std::vector<int> merged_input = data;
-        const int mid = n / 2;
-        std::sort(merged_input.begin(), merged_input.begin() + mid);
-        std::sort(merged_input.begin() + mid, merged_input.end());
-        return merged_input;
-    };
+    const std::vector<int> thread_values = {1, 2, 4, 8};
 
-    const auto merge_results = benchmark_threads(
-        base_data,
-        thread_values,
-        repetitions,
-        merge_prepare,
-        [n, granularity](int* data, int /*size*/) {
-            const int mid = (n / 2) - 1;
-            parallel_merge(data, 0, mid, n - 1, granularity);
-        },
-        sorted_check
-    );
-
-    const auto mergesort_results = benchmark_threads(
-        base_data,
-        thread_values,
-        repetitions,
-        [](const std::vector<int>& data) { return data; },
-        [granularity](int* data, int size) {
-            mergesort_parallel(data, size, granularity);
-        },
-        sorted_check
-    );
-
-    const auto kway_results = benchmark_threads(
-        base_data,
-        thread_values,
-        repetitions,
-        [](const std::vector<int>& data) { return data; },
-        [k, granularity](int* data, int size) {
-            kway_mergesort_parallel(data, size, k, granularity);
-        },
-        sorted_check
-    );
-
-    const auto full_results = benchmark_threads(
-        base_data,
-        thread_values,
-        repetitions,
-        [](const std::vector<int>& data) { return data; },
-        [k, granularity](int* data, int size) {
-            kway_mergesort_parallel_full(data, size, k, granularity);
-        },
-        sorted_check
-    );
-
-    print_metrics("Merge paralelo por ranks", merge_results);
-    print_metrics("Mergesort paralelo", mergesort_results);
-    print_metrics("K-way mergesort paralelo", kway_results);
-    print_metrics("Version paralela completa", full_results);
-    printf("Tiempo k-way (k=%d): %f segundos\n\n", k, t2);
-
-    // -----------------------------
-    // K-WAY MERGESORT PARALELO
-    // -----------------------------
-    double t3 = measure_time(
-        [](int* arr, int size) {
-            kway_mergesort_paralelo(arr, size, 4);
-        },
-        C,
-        n
-    );
-
-    if (is_sorted(C, n)) {
-        printf("K-way mergesort PARALELO OK\n");
-    } else {
-        printf("K-way mergesort PARALELO ERROR\n");
+    // --- SEQUENTIAL MERGESORT ---
+    if (mode == 0 || mode == 1) {
+        std::vector<int> serial_merge = base_data;
+        const double serial_mergesort_time = measure_time(mergesort, serial_merge.data(), n);
+        std::printf("Mergesort secuencial: %.6f s (%s)\n", serial_mergesort_time, is_sorted(serial_merge.data(), n) ? "OK" : "ERROR");
     }
 
-    printf("Tiempo k-way PARALELO (k=%d): %f segundos\n", k, t3);
+    // --- SEQUENTIAL K-WAY ---
+    if (mode == 0 || mode == 2) {
+        std::vector<int> serial_kway = base_data;
+        const auto serial_kway_start = std::chrono::high_resolution_clock::now();
+        kway_mergesort(serial_kway.data(), n, k);
+        const auto serial_kway_end = std::chrono::high_resolution_clock::now();
+        const double serial_kway_time = std::chrono::duration<double>(serial_kway_end - serial_kway_start).count();
+        std::printf("K-way secuencial: %.6f s (%s)\n", serial_kway_time, is_sorted(serial_kway.data(), n) ? "OK" : "ERROR");
+    }
 
-    // -----------------------------
-    // LIMPIEZA
-    // -----------------------------
-    delete[] A;
-    delete[] B;
-    delete[] C;
+    if (mode == 0) std::printf("\n");
+
+    // --- PARALLEL MERGE ---
+    if (mode == 0 || mode == 3) {
+        const auto merge_prepare = [n](const std::vector<int>& data) {
+            std::vector<int> merged_input = data;
+            const int mid = n / 2;
+            std::sort(merged_input.begin(), merged_input.begin() + mid);
+            std::sort(merged_input.begin() + mid, merged_input.end());
+            return merged_input;
+        };
+        const auto merge_results = benchmark_threads(base_data, thread_values, repetitions, merge_prepare,
+            [n, granularity](int* data, int /*size*/) {
+                const int mid = (n / 2) - 1;
+                parallel_merge(data, 0, mid, n - 1, granularity);
+            }, sorted_check);
+        print_metrics("Merge paralelo por ranks", merge_results);
+    }
+
+    // --- PARALLEL MERGESORT ---
+    if (mode == 0 || mode == 4) {
+        const auto mergesort_results = benchmark_threads(base_data, thread_values, repetitions,
+            [](const std::vector<int>& data) { return data; },
+            [granularity](int* data, int size) { mergesort_parallel(data, size, granularity); },
+            sorted_check);
+        print_metrics("Mergesort paralelo", mergesort_results);
+    }
+
+    // --- PARALLEL K-WAY ---
+    if (mode == 0 || mode == 5) {
+        const auto kway_results = benchmark_threads(base_data, thread_values, repetitions,
+            [](const std::vector<int>& data) { return data; },
+            [k, granularity](int* data, int size) { kway_mergesort_parallel(data, size, k, granularity); },
+            sorted_check);
+        print_metrics("K-way mergesort paralelo", kway_results);
+    }
+
+    // --- FULL PARALLEL ---
+    if (mode == 0 || mode == 6) {
+        const auto full_results = benchmark_threads(base_data, thread_values, repetitions,
+            [](const std::vector<int>& data) { return data; },
+            [k, granularity](int* data, int size) { kway_mergesort_parallel_full(data, size, k, granularity); },
+            sorted_check);
+        print_metrics("Version paralela completa", full_results);
+    }
 
     return 0;
 }
