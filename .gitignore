@@ -11,3 +11,14 @@ sort
 
 # Mac / Linux basura
 .DS_Store
+
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+# Archivos de entorno virtual
+.venv/
+env/
+ENV/
