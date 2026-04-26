@@ -20,7 +20,7 @@ run_perf_term() {
     export OMP_NUM_THREADS=$THREADS
     
     # Ejecución estándar de perf
-    perf stat -e cycles,instructions,cache-references,cache-misses ./sort $N $K $GRAN $REPS $MODE
+    LC_NUMERIC=C perf stat -e cycles,instructions,cache-references,cache-misses ./sort $N $K $GRAN $REPS $MODE
 }
 
 run_perf_term "Mergesort Secuencial" 1 1

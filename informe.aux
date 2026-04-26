@@ -21,9 +21,24 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Entorno de Ejecución}{2}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Parámetros de Prueba}{2}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Resultados y Discusión}{3}{section.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Speedup obtenido para diferentes tamaños de arreglo y número de hilos.}}{3}{figure.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Eficiencia relativa en función del número de hilos y tamaño del arreglo.}}{4}{figure.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se observa un estancamiento de la eficiencia al utilizar 8 hilos, alejándose de la curva ideal.}}{4}{figure.3}\protected@file@percent }
-\newlabel{fig:speedup_n26}{{3}{4}{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se observa un estancamiento de la eficiencia al utilizar 8 hilos, alejándose de la curva ideal}{figure.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusiones}{5}{section.6}\protected@file@percent }
-\gdef \@abspage@last{5}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Rendimiento de los algoritmos paralelos utilizando $p=8$ hilos frente a su ejecución base ($p=1$) para un tamaño de arreglo $N = 2^{26}$.}}{3}{table.1}\protected@file@percent }
+\newlabel{tab:rendimiento_n26}{{1}{3}{Rendimiento de los algoritmos paralelos utilizando $p=8$ hilos frente a su ejecución base ($p=1$) para un tamaño de arreglo $N = 2^{26}$}{table.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se evidencia la caída de pendiente producto del SMT y el ancho de banda a partir de $p=4$.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:speedup_n26}{{1}{3}{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se evidencia la caída de pendiente producto del SMT y el ancho de banda a partir de $p=4$}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Degradación de la eficiencia paralela. Los algoritmos que paralelizan la fase de partición (K-way y Full Paralelo) logran mantenerse por encima del 60\% de eficiencia bajo máxima carga.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:eficiencia_n26}{{2}{4}{Degradación de la eficiencia paralela. Los algoritmos que paralelizan la fase de partición (K-way y Full Paralelo) logran mantenerse por encima del 60\% de eficiencia bajo máxima carga}{figure.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discusión de Resultados y Análisis Teórico}{4}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Análisis de Escalabilidad y Desempeño Práctico}{4}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Contraste con el Modelo PRAM y Teorema de Brent}{4}{subsection.6.2}\protected@file@percent }
+\newlabel{eq:brent_par_merge}{{1}{5}{Contraste con el Modelo PRAM y Teorema de Brent}{equation.6.1}{}}
+\newlabel{eq:brent_full}{{3}{5}{Contraste con el Modelo PRAM y Teorema de Brent}{equation.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Análisis de Hardware, Profiling y Cuellos de Botella}{5}{subsection.6.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Métricas de hardware capturadas con \texttt  {perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo).}}{5}{table.2}\protected@file@percent }
+\newlabel{tab:hardware_metrics}{{2}{5}{Métricas de hardware capturadas con \texttt {perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo)}{table.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Saturación del Ancho de Banda y \textit  {Cache Thrashing}:}{5}{section*.1}\protected@file@percent }
+\bibcite{openmp}{1}
+\bibcite{kumar}{2}
+\bibcite{amd}{3}
+\bibcite{mergepath}{4}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusiones}{6}{section.7}\protected@file@percent }
+\gdef \@abspage@last{7}

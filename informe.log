@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.25)  26 APR 2026 00:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.25)  26 APR 2026 13:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -326,12 +326,18 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box55
 \@float@everytoks=\toks29
 \@floatcapt=\box56
+) (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip54
+\multirow@cntb=\count304
+\multirow@dima=\skip55
+\bigstrutjot=\dimen182
 ) (/usr/share/texlive/texmf-dist/tex/latex/pgfplots/pgfplots.sty (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
 Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
  (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
 \pgfutil@everybye=\toks30
-\pgfutil@tempdima=\dimen182
-\pgfutil@tempdimb=\dimen183
+\pgfutil@tempdima=\dimen183
+\pgfutil@tempdimb=\dimen184
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
 \pgfutil@abb=\box57
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)
@@ -346,26 +352,26 @@ Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex
 \pgfkeys@tmptoks=\toks33
 ))
-\pgf@x=\dimen184
-\pgf@y=\dimen185
-\pgf@xa=\dimen186
-\pgf@ya=\dimen187
-\pgf@xb=\dimen188
-\pgf@yb=\dimen189
-\pgf@xc=\dimen190
-\pgf@yc=\dimen191
-\pgf@xd=\dimen192
-\pgf@yd=\dimen193
+\pgf@x=\dimen185
+\pgf@y=\dimen186
+\pgf@xa=\dimen187
+\pgf@ya=\dimen188
+\pgf@xb=\dimen189
+\pgf@yb=\dimen190
+\pgf@xc=\dimen191
+\pgf@yc=\dimen192
+\pgf@xd=\dimen193
+\pgf@yd=\dimen194
 \w@pgf@writea=\write3
 \r@pgf@reada=\read3
-\c@pgf@counta=\count304
-\c@pgf@countb=\count305
-\c@pgf@countc=\count306
-\c@pgf@countd=\count307
+\c@pgf@counta=\count305
+\c@pgf@countb=\count306
+\c@pgf@countc=\count307
+\c@pgf@countd=\count308
 \t@pgf@toka=\toks34
 \t@pgf@tokb=\toks35
 \t@pgf@tokc=\toks36
-\pgf@sys@id@count=\count308
+\pgf@sys@id@count=\count309
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
 )
@@ -376,59 +382,59 @@ File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
 File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count309
-\pgfsyssoftpath@bigbuffer@items=\count310
+\pgfsyssoftpath@smallbuffer@items=\count310
+\pgfsyssoftpath@bigbuffer@items=\count311
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
 Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen194
-\pgfmath@count=\count311
+\pgfmath@dimen=\dimen195
+\pgfmath@count=\count312
 \pgfmath@box=\box58
 \pgfmath@toks=\toks37
 \pgfmath@stack@operand=\toks38
 \pgfmath@stack@operation=\toks39
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count312
+\c@pgfmathroundto@lastzeros=\count313
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen195
-\pgf@picmaxx=\dimen196
-\pgf@picminy=\dimen197
-\pgf@picmaxy=\dimen198
-\pgf@pathminx=\dimen199
-\pgf@pathmaxx=\dimen256
-\pgf@pathminy=\dimen257
-\pgf@pathmaxy=\dimen258
-\pgf@xx=\dimen259
-\pgf@xy=\dimen260
-\pgf@yx=\dimen261
-\pgf@yy=\dimen262
-\pgf@zx=\dimen263
-\pgf@zy=\dimen264
+\pgf@picminx=\dimen196
+\pgf@picmaxx=\dimen197
+\pgf@picminy=\dimen198
+\pgf@picmaxy=\dimen199
+\pgf@pathminx=\dimen256
+\pgf@pathmaxx=\dimen257
+\pgf@pathminy=\dimen258
+\pgf@pathmaxy=\dimen259
+\pgf@xx=\dimen260
+\pgf@xy=\dimen261
+\pgf@yx=\dimen262
+\pgf@yy=\dimen263
+\pgf@zx=\dimen264
+\pgf@zy=\dimen265
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen265
-\pgf@path@lasty=\dimen266
+\pgf@path@lastx=\dimen266
+\pgf@path@lasty=\dimen267
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen267
-\pgf@shorten@start@additional=\dimen268
+\pgf@shorten@end@additional=\dimen268
+\pgf@shorten@start@additional=\dimen269
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfpic=\box59
 \pgf@hbox=\box60
 \pgf@layerbox@main=\box61
-\pgf@picture@serial@count=\count313
+\pgf@picture@serial@count=\count314
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen269
+\pgflinewidth=\dimen270
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen270
-\pgf@pt@y=\dimen271
-\pgf@pt@temp=\dimen272
+\pgf@pt@x=\dimen271
+\pgf@pt@y=\dimen272
+\pgf@pt@temp=\dimen273
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
@@ -437,12 +443,12 @@ File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen273
+\pgfarrowsep=\dimen274
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen274
-\pgf@sys@shading@range@num=\count314
-\pgf@shadingcount=\count315
+\pgf@max=\dimen275
+\pgf@sys@shading@range@num=\count315
+\pgf@shadingcount=\count316
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
@@ -463,93 +469,93 @@ File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen275
-\pgf@nodesepend=\dimen276
+\pgf@nodesepstart=\dimen276
+\pgf@nodesepend=\dimen277
 ) (/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 )) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen277
-\pgffor@skip=\dimen278
+\pgffor@iter=\dimen278
+\pgffor@skip=\dimen279
 \pgffor@stack=\toks40
 \pgffor@toks=\toks41
 )) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count316
-\pgfplotmarksize=\dimen279
+\pgf@plot@mark@count=\count317
+\pgfplotmarksize=\dimen280
 )
-\tikz@lastx=\dimen280
-\tikz@lasty=\dimen281
-\tikz@lastxsaved=\dimen282
-\tikz@lastysaved=\dimen283
-\tikz@lastmovetox=\dimen284
-\tikz@lastmovetoy=\dimen285
-\tikzleveldistance=\dimen286
-\tikzsiblingdistance=\dimen287
+\tikz@lastx=\dimen281
+\tikz@lasty=\dimen282
+\tikz@lastxsaved=\dimen283
+\tikz@lastysaved=\dimen284
+\tikz@lastmovetox=\dimen285
+\tikz@lastmovetoy=\dimen286
+\tikzleveldistance=\dimen287
+\tikzsiblingdistance=\dimen288
 \tikz@figbox=\box64
 \tikz@figbox@bg=\box65
 \tikz@tempbox=\box66
 \tikz@tempbox@bg=\box67
-\tikztreelevel=\count317
-\tikznumberofchildren=\count318
-\tikznumberofcurrentchild=\count319
-\tikz@fig@count=\count320
+\tikztreelevel=\count318
+\tikznumberofchildren=\count319
+\tikznumberofcurrentchild=\count320
+\tikz@fig@count=\count321
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count321
-\pgfmatrixcurrentcolumn=\count322
-\pgf@matrix@numberofcolumns=\count323
+\pgfmatrixcurrentrow=\count322
+\pgfmatrixcurrentcolumn=\count323
+\pgf@matrix@numberofcolumns=\count324
 )
-\tikz@expandcount=\count324
+\tikz@expandcount=\count325
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
 \t@pgfplots@toka=\toks42
 \t@pgfplots@tokb=\toks43
 \t@pgfplots@tokc=\toks44
-\pgfplots@tmpa=\dimen288
-\c@pgfplots@coordindex=\count325
-\c@pgfplots@scanlineindex=\count326
+\pgfplots@tmpa=\dimen289
+\c@pgfplots@coordindex=\count326
+\c@pgfplots@scanlineindex=\count327
  (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_loader.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
 Package pgfplots: loading complementary utilities for your pgf version...
 \t@pgf@toka=\toks45
 \t@pgf@tokb=\toks46
 \t@pgf@tokc=\toks47
 (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsupp_pgfutil-common-lists.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructure.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststructureext.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.code.tex
-\c@pgfplotsarray@tmp=\count327
+\c@pgfplotsarray@tmp=\count328
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.code.tex
-\c@pgfplotstable@counta=\count328
+\c@pgfplotstable@counta=\count329
 \t@pgfplotstable@a=\toks48
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count329
+\c@pgfplotslibrarysurf@no=\count330
  (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshading.pgfsys-pdftex.def))) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex))) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen289
-\pgfdecoratedremainingdistance=\dimen290
-\pgfdecoratedinputsegmentcompleteddistance=\dimen291
-\pgfdecoratedinputsegmentremainingdistance=\dimen292
-\pgf@decorate@distancetomove=\dimen293
-\pgf@decorate@repeatstate=\count330
-\pgfdecorationsegmentamplitude=\dimen294
-\pgfdecorationsegmentlength=\dimen295
+\pgfdecoratedcompleteddistance=\dimen290
+\pgfdecoratedremainingdistance=\dimen291
+\pgfdecoratedinputsegmentcompleteddistance=\dimen292
+\pgfdecoratedinputsegmentremainingdistance=\dimen293
+\pgf@decorate@distancetomove=\dimen294
+\pgf@decorate@repeatstate=\count331
+\pgfdecorationsegmentamplitude=\dimen295
+\pgfdecorationsegmentlength=\dimen296
 )
 \tikz@lib@dec@box=\box68
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathmorphing.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathmorphing.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarydecorations.pathreplacing.code.tex (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydecorations.pathreplacing.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.contourlua.code.tex)
-\pgfplots@numplots=\count331
-\pgfplots@xmin@reg=\dimen296
-\pgfplots@xmax@reg=\dimen297
-\pgfplots@ymin@reg=\dimen298
-\pgfplots@ymax@reg=\dimen299
-\pgfplots@zmin@reg=\dimen300
-\pgfplots@zmax@reg=\dimen301
+\pgfplots@numplots=\count332
+\pgfplots@xmin@reg=\dimen297
+\pgfplots@xmax@reg=\dimen298
+\pgfplots@ymin@reg=\dimen299
+\pgfplots@ymax@reg=\dimen300
+\pgfplots@zmin@reg=\dimen301
+\pgfplots@zmax@reg=\dimen302
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryplotmarks.code.tex
 File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
 File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count332
+\l__color_backend_stack_int=\count333
 \l__pdf_internal_box=\box69
 ) (./informe.aux
 LaTeX Info: Redefining \. on input line 11.
@@ -557,26 +563,26 @@ LaTeX Info: Redefining \% on input line 11.
 )
 \openout1 = `informe.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Info: Redefining \. on input line 38.
-LaTeX Info: Redefining \% on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Info: Redefining \. on input line 44.
+LaTeX Info: Redefining \% on input line 44.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -614,16 +620,16 @@ LaTeX Info: Redefining \% on input line 38.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count333
-\scratchdimen=\dimen302
+\scratchcounter=\count334
+\scratchdimen=\dimen303
 \scratchbox=\box70
-\nofMPsegments=\count334
-\nofMParguments=\count335
+\nofMPsegments=\count335
+\nofMParguments=\count336
 \everyMPshowfont=\toks49
-\MPscratchCnt=\count336
-\MPscratchDim=\dimen303
-\MPnumerator=\count337
-\makeMPintoPDFobject=\count338
+\MPscratchCnt=\count337
+\MPscratchDim=\dimen304
+\MPnumerator=\count338
+\makeMPintoPDFobject=\count339
 \everyMPtoPDFconversion=\toks50
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -631,53 +637,47 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 38.
+Package hyperref Info: Link coloring OFF on input line 44.
  (./informe.out) (./informe.out)
 \@outlinefile=\write4
 \openout4 = `informe.out'.
 
-\c@lstlisting=\count339
+\c@lstlisting=\count340
 
 Package pgfplots notification 'compat/show suggested version=true': document has been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 41.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<grafico_speedup_facet.png, id=79, 812.7966pt x 578.16pt>
-File: grafico_speedup_facet.png Graphic file (type png)
-<use grafico_speedup_facet.png>
-Package pdftex.def Info: grafico_speedup_facet.png  used on input line 102.
-(pdftex.def)             Requested size: 455.24411pt x 323.82915pt.
-<grafico_eficiencia_facet.png, id=81, 812.7966pt x 578.16pt>
-File: grafico_eficiencia_facet.png Graphic file (type png)
-<use grafico_eficiencia_facet.png>
-Package pdftex.def Info: grafico_eficiencia_facet.png  used on input line 108.
-(pdftex.def)             Requested size: 455.24411pt x 323.82915pt.
- [3
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3
 
 
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.241 
+      
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.111 
-       <./grafico_speedup_facet.png>] [4
+l.241 
+      ] [4
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.163 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+l.259 \end{equation}
+                    ] [5
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.163 
-       <./grafico_eficiencia_facet.png>] [5] (./informe.aux
+l.308 
+      ] [6] [7] (./informe.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -686,21 +686,21 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `informe.out' has not changed.
-(rerunfilecheck)             Checksum: 3681AFCD0F864BCB079D4FAA8657FB78;2051.
+(rerunfilecheck)             Checksum: 7B1936558D8197143F54FE7A9F8BF94E;3300.
  ) 
 Here is how much of TeX's memory you used:
- 33891 strings out of 476120
- 775973 string characters out of 5793657
- 1938975 words of memory out of 5000000
- 55383 multiletter control sequences out of 15000+600000
- 568124 words of font info for 74 fonts, out of 8000000 for 9000
+ 34000 strings out of 476120
+ 777558 string characters out of 5793657
+ 1948975 words of memory out of 5000000
+ 55470 multiletter control sequences out of 15000+600000
+ 568652 words of font info for 76 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 99i,19n,101p,816b,2265s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/khewa/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on informe.pdf (5 pages, 702780 bytes).
+ 99i,19n,101p,934b,2255s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/khewa/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on informe.pdf (7 pages, 181371 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
- 127 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 202 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

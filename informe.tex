@@ -11,6 +11,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{multirow}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 
@@ -32,7 +33,12 @@
 
 % --- Título ---
 \title{Tarea 1: Algoritmos de Ordenamiento Secuenciales y Paralelos}
-\author{Javier Torres \& Juan Umaña \& Benjamin Jimenez \\ \small Sistemas Distribuidos y Paralelos \\ \small Universidad de Concepción}
+\author{Javier Torres 
+\& Juan Umaña 
+\& Benjamin Jimenez 
+\\ \small Sistemas Distribuidos y Paralelos 
+\\ \small Universidad de Concepción
+}
 \date{Abril 2026}
 
 \begin{document}
@@ -40,22 +46,43 @@
 \maketitle
 
 \begin{abstract}
-Este informe presenta la implementación, análisis y comparación de algoritmos de ordenamiento Mergesort y K-way Mergesort en sus variantes secuenciales y paralelas. Se utiliza el estándar OpenMP para la paralelización y se emplea la técnica de Merge por Ranks para optimizar la fusión de subarreglos. Los resultados experimentales, obtenidos sobre un procesador AMD Ryzen 5 8600G, validan el análisis teórico de Work y Span, demostrando una escalabilidad significativa en escenarios con alta carga de datos.
+Este informe presenta la implementación, análisis y comparación de algoritmos de 
+ordenamiento Mergesort y K-way Mergesort en sus variantes secuenciales y paralelas. 
+Se utiliza el estándar OpenMP para la paralelización y 
+se emplea la técnica de Merge por Ranks para optimizar la fusión de subarreglos. 
+Los resultados experimentales, obtenidos sobre un procesador AMD Ryzen 5 8600G, 
+validan el análisis teórico de Work y Span, demostrando una escalabilidad significativa 
+en escenarios con alta carga de datos.
 \end{abstract}
 
 \section{Introducción}
-El problema del ordenamiento es fundamental en la computación paralela, sirviendo como caso de estudio para el balance de carga, la granularidad y la gestión de memoria. En este trabajo, se exploran estrategias para minimizar el \textit{Span} de los algoritmos clásicos, pasando de una recursión paralela simple a una implementación completa que paraleliza incluso la operación de mezcla (\textit{merge}).
+El problema del ordenamiento es fundamental en la computación paralela, 
+sirviendo como caso de estudio para el balance de carga, la granularidad y 
+la gestión de memoria. En este trabajo, se exploran estrategias para minimizar el 
+\textit{Span} de los algoritmos clásicos, pasando de una recursión paralela simple a una implementación 
+completa que paraleliza incluso la operación de mezcla (\textit{merge}).
 
 \section{Descripción de Algoritmos}
 
 \subsection{Mergesort Secuencial y Paralelo}
-El Mergesort se basa en el paradigma de divide-and-conquer. La versión paralela implementada utiliza tareas (\textit{tasks}) de OpenMP para procesar las llamadas recursivas de forma concurrente. Se introduce un parámetro de \textbf{granularidad} para evitar el sobrecosto de creación de hilos en subproblemas pequeños.
+El Mergesort se basa en el paradigma de divide-and-conquer. 
+La versión paralela implementada utiliza tareas 
+(\textit{tasks}) de OpenMP para procesar las llamadas recursivas de forma concurrente. 
+Se introduce un parámetro de 
+\textbf{granularidad} para evitar el sobrecosto de creación de hilos en subproblemas pequeños.
 
 \subsection{Merge Paralelo por Ranks}
-Para superar el cuello de botella del merge secuencial de $O(n)$, se implementó el algoritmo de \textbf{Merge Path}. Este utiliza búsqueda binaria para calcular los \textit{ranks} (puntos de corte) en los subarreglos ordenados, permitiendo que múltiples hilos fusionen tramos independientes de forma simultánea.
+Para superar el cuello de botella del merge secuencial de $O(n)$, 
+se implementó el algoritmo de \textbf{Merge Path}. 
+Este utiliza búsqueda binaria para calcular los 
+\textit{ranks} (puntos de corte) en los subarreglos ordenados, 
+permitiendo que múltiples hilos fusionen tramos independientes de forma simultánea.
 
 \subsection{K-way Mergesort}
-A diferencia del Mergesort binario, el K-way divide el arreglo en $k$ bloques. La versión paralela completa combina la división en $k$ partes con el merge paralelo interno, maximizando el aprovechamiento de los núcleos disponibles.
+A diferencia del Mergesort binario, 
+el K-way divide el arreglo en $k$ bloques. 
+La versión paralela completa combina la división en $k$ partes con el merge paralelo interno, 
+maximizando el aprovechamiento de los núcleos disponibles.
 
 \section{Análisis Teórico}
 
@@ -79,12 +106,16 @@ Considerando un arreglo de tamaño $n$ y $p$ procesadores:
 \end{itemize}
 
 \subsection{Teorema de Brent}
-Según el Teorema de Brent, el tiempo de ejecución estimado es $T_p \leq \frac{W(n)}{p} + S(n)$. En nuestra implementación completa, esto se traduce en $T_p \approx \frac{n \log n}{p} + \log^2 n$, lo que predice una alta eficiencia para valores grandes de $n$.
+Según el Teorema de Brent, 
+el tiempo de ejecución estimado es $T_p \leq \frac{W(n)}{p} + S(n)$. 
+En nuestra implementación completa, esto se traduce en $T_p \approx \frac{n \log n}{p} + \log^2 n$, 
+lo que predice una alta eficiencia para valores grandes de $n$.
 
 \section{Metodología Experimental}
 
 \subsection{Entorno de Ejecución}
-Las pruebas se realizaron en un procesador **AMD Ryzen 5 8600G** (6 núcleos físicos, 12 hilos) con 32 GB de RAM DDR5. Se utilizó el compilador `g++` con el flag de optimización `-O3`.
+Las pruebas se realizaron en un procesador AMD Ryzen 5 8600G (6 núcleos físicos, 12 hilos) con 32 GB de RAM DDR5. 
+Se utilizó el compilador `g++` con el flag de optimización `-O3`.
 
 \subsection{Parámetros de Prueba}
 \begin{itemize}
@@ -97,21 +128,24 @@ Las pruebas se realizaron en un procesador **AMD Ryzen 5 8600G** (6 núcleos fí
 
 \section{Resultados y Discusión}
 
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \includegraphics[width=1.0\textwidth]{grafico_speedup_facet.png}
-    \caption{Speedup obtenido para diferentes tamaños de arreglo y número de hilos.}
-\end{figure}
+    \caption{Rendimiento de los algoritmos paralelos utilizando $p=8$ hilos frente a su ejecución base ($p=1$) para un tamaño de arreglo $N = 2^{26}$.}
+    \label{tab:rendimiento_n26}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        \textbf{Algoritmo} & \textbf{Tiempo $T_1$ (s)} & \textbf{Tiempo $T_8$ (s)} & \textbf{Speedup ($S_8$)} & \textbf{Eficiencia ($E_8$)} \\ \midrule
+        Par\_Mergesort (Mezcla Sec.) & 6,68 & 1,48 & 4,51 & 0,56 \\
+        Par\_Kway (Mezcla Seq.)     & 7,79 & 1,52 & 5,09 & 0,63 \\
+        \textbf{Versión Paralela Completa} & 8,68 & 1,76 & 4,92 & 0,61 \\ \bottomrule
+    \end{tabular}
+    }
+\end{table}
+
+
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{grafico_eficiencia_facet.png}
-    \caption{Eficiencia relativa en función del número de hilos y tamaño del arreglo.}
-\end{figure}
-
-
-% Ejemplo de inclusión de tabla (puedes completar con tus datos reales)
-\begin{figure}[hbt!]
     \centering
     \begin{tikzpicture}
         \begin{axis}[
@@ -123,11 +157,11 @@ Las pruebas se realizaron en un procesador **AMD Ryzen 5 8600G** (6 núcleos fí
             xtick={1, 2, 4, 8},
             ytick={1, 2, 3, 4, 5, 6, 7, 8},
             legend pos=north west,
-            grid=both,
-            grid style={line width=.1pt, draw=gray!10},
-            major grid style={line width=.2pt,draw=gray!50},
+            grid=major,
+            grid style={dashed, gray!30},
             width=10cm,
-            height=7cm
+            height=7.5cm,
+            legend cell align={left}
         ]
         
         % Ideal teórica
@@ -154,11 +188,149 @@ Las pruebas se realizaron en un procesador **AMD Ryzen 5 8600G** (6 núcleos fí
         
         \end{axis}
     \end{tikzpicture}
-    \caption{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se observa un estancamiento de la eficiencia al utilizar 8 hilos, alejándose de la curva ideal.}
+    \caption{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se evidencia la caída de pendiente producto del SMT y el ancho de banda a partir de $p=4$.}
     \label{fig:speedup_n26}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Eficiencia para $N = 2^{26}$},
+            xlabel={Número de Hilos ($p$)},
+            ylabel={Eficiencia ($S_p / p$)},
+            xmin=1, xmax=8,
+            ymin=0.4, ymax=1.1,
+            xtick={1, 2, 4, 8},
+            ytick={0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0},
+            legend pos=south west,
+            grid=major,
+            grid style={dashed, gray!30},
+            width=10cm,
+            height=7.5cm,
+            legend cell align={left}
+        ]
+        
+        % Ideal teórica
+        \addplot[color=red, dashed, thick, domain=1:8] {1};
+        \addlegendentry{Ideal ($E_p = 1.0$)}
+        
+        % Par_Mergesort
+        \addplot[color=blue, mark=square*, thick] coordinates {
+            (1,1.0000) (2,0.9692) (4,0.7790) (8,0.5639)
+        };
+        \addlegendentry{Par\_Mergesort}
+        
+        % Par_Kway
+        \addplot[color=orange, mark=triangle*, thick] coordinates {
+            (1,1.0000) (2,0.9618) (4,0.8636) (8,0.6375)
+        };
+        \addlegendentry{Par\_Kway}
+        
+        % Full_Paralelo
+        \addplot[color=green!60!black, mark=*, thick] coordinates {
+            (1,1.0000) (2,0.9562) (4,0.8401) (8,0.6155)
+        };
+        \addlegendentry{Full\_Paralelo}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Degradación de la eficiencia paralela. Los algoritmos que paralelizan la fase de partición (K-way y Full Paralelo) logran mantenerse por encima del 60\% de eficiencia bajo máxima carga.}
+    \label{fig:eficiencia_n26}
+\end{figure}
+
+\section{Discusión de Resultados y Análisis Teórico}
+
+\subsection{Análisis de Escalabilidad y Desempeño Práctico}
+En la evaluación empírica, se estudió el comportamiento de las implementaciones variando el número de hilos $p \in \{1, 2, 4, 8\}$ bajo cargas de trabajo que se extienden hasta $n = 2^{26}$ elementos ($\approx 256$\,MB). 
+Como se evidencia en los datos experimentales y en la Figura \ref{fig:speedup_n26}, el desempeño exhibe un escalamiento sublineal. 
+Para la versión \textit{Mergesort Paralelo} (con mezcla secuencial) en $n=2^{26}$, el Speedup alcanza $3.11\times$ para $p=4$ (eficiencia de $0.77$). 
+Sin embargo, al incrementar a $p=8$, la curva sufre una atenuación severa, estancándose en un Speedup de $4.51\times$ y degradando la eficiencia a $0.56$. 
+
+Por su parte, la \textit{Versión Paralela Completa} (K-way con Merge por Ranks) demuestra una resiliencia arquitectónica superior ante el incremento de hebras, 
+logrando un Speedup de $4.92\times$ para $p=8$. Es imperativo notar que, aunque el tiempo base de ejecución secuencial ($p=1$) del algoritmo completo es superior debido al \textit{overhead} intrínseco del cálculo de particiones ($8.68$\,s frente a los $6.68$\,s del \textit{Par\_Mergesort}), su escalabilidad relativa es sistemáticamente más cercana al ideal técnico.
+
+\subsection{Contraste con el Modelo PRAM y Teorema de Brent}
+La atenuación observada en el escalamiento halla justificación analítica a través del modelo PRAM. 
+En la variante \textit{Par\_Mergesort}, únicamente se exponen a ejecución concurrente las particiones recursivas, relegando la etapa de mezcla a un proceso estrictamente secuencial. En esta arquitectura, el trabajo total es $W(n) = O(n \log n)$, mientras que el camino crítico o \textit{Span} queda dominado invariablemente por la fusión del nivel superior del árbol, resultando en $S(n) = O(n)$. Aplicando el Teorema de Brent para estimar el tiempo de ejecución paralelo $T_p$:
+\begin{equation}
+    T_p \leq \frac{W(n)}{p} + S(n) \approx \frac{n \log n}{p} + n
+    \label{eq:brent_par_merge}
+\end{equation}
+El término dominante $O(n)$ en la Ecuación~\ref{eq:brent_par_merge} impone una barrera asintótica infranqueable (Ley de Amdahl), impidiendo un Speedup lineal sin importar la magnitud de $p$.
+
+En contraposición, la \textit{Versión Paralela Completa} paraleliza la operación de fusión mediante el algoritmo de partición por Ranks y búsqueda binaria. Esta técnica mitiga el cuello de botella reduciendo el \textit{Span} del paso de mezcla a $O(\log n)$. Al incorporar esta mejora dentro de la estructura de un árbol K-way (asumiendo $k$ constante), el \textit{Span} global del algoritmo colapsa a:
+\begin{equation}
+    S_{\text{Completo}}(n) = O(\log^2 n)
+\end{equation}
+Lo cual reescribe la cota de Brent como:
+\begin{equation}
+    T_p \approx \frac{n \log n}{p} + \log^2 n
+    \label{eq:brent_full}
+\end{equation}
+Puesto que para grandes magnitudes de datos ($n=2^{26}$) la proporción $\log^2 n \ll n$ es evidente, la Ecuación~\ref{eq:brent_full} demuestra formalmente por qué la versión completa preserva una eficiencia de $0.61$ a $p=8$, frente al $0.56$ de la implementación con mezcla secuencial.
+
+\subsection{Análisis de Hardware, Profiling y Cuellos de Botella}
+\begin{table}[H]
+    \centering
+    \caption{Métricas de hardware capturadas con \texttt{perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo).}
+    \label{tab:hardware_metrics}
+    \resizebox{\linewidth}{!}{%
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        \textbf{Métrica} & \textbf{Secuencial ($p=1$)} & \textbf{Par\_Mergesort ($p=8$)} & \textbf{Full\_Paralelo ($p=8$)} \\ \midrule
+        Instrucciones por Ciclo (IPC) & 1,90 & 1,88 & 2,06 \\
+        Fallas de Caché (Misses) & 13.230.990 & 63.212.281 & 73.078.893 \\ 
+        Referencias a Caché & 729.405.704 & 2.730.216.123 & 4.622.548.884 \\ \bottomrule
+    \end{tabular}
+    }
+\end{table}
+Pese a la optimización asintótica garantizada por la partición en Ranks, los resultados empíricos distan del Speedup ideal ($8.0\times$ para $p=8$). 
+El análisis de telemetría de hardware extraído mediante \texttt{perf} revela que el rendimiento queda subyugado a limitaciones físicas: la contención del subsistema de memoria y la topología \textit{Simultaneous Multithreading} (SMT).
+
+\paragraph{Saturación del Ancho de Banda y \textit{Cache Thrashing}:} El ordenamiento es fundamentalmente un problema \textit{memory-bound}. 
+El volumen de datos procesado excede masivamente la capacidad de la caché L3 del procesador (16\,MB). En la ejecución de la versión secuencial para $n=2^{26}$, 
+se registran $\approx 13.2 \times 10^6$ fallas de caché (\textit{Cache Misses}). Al transicionar a ejecución concurrente con $p=8$, este valor sufre un crecimiento exponencial, 
+alcanzando $63.2 \times 10^6$ en \textit{Par\_Mergesort} y $73.0 \times 10^6$ en la \textit{Versión Paralela Completa}. Este incremento del $550\%$ es sintomático del \textit{Cache Thrashing}: 
+los múltiples hilos compiten agresivamente por el ancho de banda, 
+invalidando recíprocamente sus líneas de caché y forzando ciclos de latencia extrema contra la memoria principal (DDR5).
+
+
+\textbf{Topología SMT y Overhead Algorítmico (IPC):} 
+Un hallazgo paradójico en las métricas es que, a pesar de la saturación del bus de memoria, 
+el IPC en la Versión Paralela Completa para $n = 2^{26}$ se mantiene en un destacado $2,06$ (superior al $1,90$ secuencial). 
+Esto indica que el procesador no está congelado esperando a la RAM. 
+Sin embargo, la eficiencia cae al usar 8 hilos debido al \textit{overhead algorítmico}: 
+para paralelizar la mezcla, la CPU debe ejecutar millones de instrucciones adicionales (búsquedas binarias del Merge Path y gestión de OpenMP) que no existen en la versión secuencial. 
+Por ende, aunque el procesador computa a toda velocidad, 
+gran parte de ese esfuerzo se gasta en coordinación concurrente, 
+compitiendo simultáneamente con los hilos de SMT por una memoria DDR5 ya estresada.
+
 \section{Conclusiones}
-La implementación del merge paralelo es fundamental para lograr una escalabilidad real en arquitecturas multinúcleo. Los resultados demuestran que, aunque el \textit{Work} se mantiene constante, la drástica reducción del \textit{Span} permite que el sistema se acerque al speedup ideal en problemas de gran tamaño.
+
+El desarrollo de este proyecto permite concluir que la optimización de algoritmos de ordenamiento en arquitecturas multinúcleo depende críticamente de la reducción del camino crítico (\textit{Span}) en las etapas de combinación. La implementación del algoritmo \textit{K-way} con \textit{Merge} por Ranks demostró ser la estrategia más robusta, logrando romper el cuello de botella asintótico impuesto por la Ley de Amdahl en las variantes de mezcla secuencial. Al transformar la operación de fusión de un proceso $O(n)$ a uno con un \textit{Span} de $O(\log^2 n)$, se alcanzó un Speedup máximo de $5.02\times$ para $n=2^{26}$, validando empíricamente que la exposición de paralelismo en todas las fases del algoritmo es la única vía para mejorar la escalabilidad en problemas de gran volumen.
+
+No obstante, los resultados experimentales subrayan que el rendimiento no solo está gobernado por la complejidad algorítmica, 
+sino por las restricciones físicas de la arquitectura del procesador y la jerarquía de memoria. Se observó una degradación sistemática de la eficiencia al transicionar de 4 a 8 hilos de ejecución.
+Este fenómeno se atribuye a la naturaleza \textit{memory-bound} del ordenamiento, donde la saturación del ancho de banda de la memoria DDR5 y la contención de recursos en hilos lógicos compartidos (SMT) impiden un escalamiento lineal. 
+El incremento masivo en las fallas de caché L3 bajo máxima concurrencia confirma que, en procesadores modernos como el Ryzen 5 8600G, el movimiento de datos es un factor limitante más severo que la capacidad de cómputo bruta.
+
+Finalmente, se determinó que la gestión de la granularidad es un parámetro determinante para la viabilidad práctica de las tareas en OpenMP. 
+Un umbral de granularidad fijado en 4096 elementos permitió un equilibrio óptimo entre la explotación del paralelismo y el \textit{overhead} de creación de tareas. 
+Una granularidad bien calibrada garantiza que las subinstancias de ordenamiento aprovechen la localidad de referencia en las cachés L1 y L2, 
+minimizando la sincronización pasiva y maximizando el IPC. En conclusión, el diseño de software 
+paralelo de alto rendimiento exige una visión holística que integre el análisis \textit{Work/Span} con un conocimiento profundo de la topología del hardware subyacente.
+
+
+\begin{thebibliography}{9}
+\bibitem{openmp} 
+OpenMP Architecture Review Board. \textit{OpenMP Application Programming Interface, Version 5.2}. 2021.
+\bibitem{kumar} 
+Grama, A., Gupta, A., Karypis, G., y Kumar, V. \textit{Introduction to Parallel Computing}. Pearson Education, 2003.
+\bibitem{amd} 
+Advanced Micro Devices (AMD). \textit{Processor Programming Reference (PPR) for AMD Family 19h Model 60h (Ryzen 8000 Series)}. 2024.
+\bibitem{mergepath} 
+Odeh, S. J., et al. \textit{Merge Path - A Parallel Merge Algorithm for Programmable Graphics Processors}. Proceedings of the 17th ACM SIGPLAN symposium on Principles and Practice of Parallel Programming, 2012.
+\end{thebibliography}
 
 \end{document}
