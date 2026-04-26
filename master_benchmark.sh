@@ -34,7 +34,7 @@ for i in "${!SIZES[@]}"; do
         
         # Ejecutar perf y capturar salida
         # Nota: En n=2^26, perf puede tardar un poco más.
-        PROG_OUT=$(perf stat -x, -e cycles,instructions,cache-references,cache-misses -o $TMP_PERF ./sort $N 4 8192 1 $MODE 2>&1)
+        PROG_OUT=$(LC_NUMERIC=C perf stat -x, -e cycles,instructions,cache-references,cache-misses -o $TMP_PERF ./sort $N 4 8192 1 $MODE 2>&1)
         
         # Extraer Tiempo
         TIME=$(echo "$PROG_OUT" | grep -E "secuencial:|8\t" | tail -n 1 | awk '{print $2}')
