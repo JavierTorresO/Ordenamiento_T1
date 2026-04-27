@@ -1,41 +1,64 @@
-# Ordenamiento_T1
-Algoritmos secuenciales vs Algoritmos paralelos
+# Tarea 1: Algoritmos de Ordenamiento Secuenciales y Paralelos
 
-## Compilar
+Este proyecto implementa y compara diversos algoritmos de ordenamiento (Mergesort, K-way Mergesort y Quicksort) utilizando OpenMP para la paralelización en arquitecturas multinúcleo.
 
-En PowerShell:
+## Estructura del Proyecto
 
-```powershell
-g++ -O3 -fopenmp -I. main.cpp utils/utils.cpp algoritmos/mergesort.cpp algoritmos/kway.cpp paralelismo/merge_paralelo.cpp paralelismo/mergesort_paralelo.cpp -o sort.exe
-```
+- `algoritmos/`: Versiones secuenciales de Mergesort y K-way.
+- `paralelismo/`: Implementaciones paralelas (Merge Path, Task-based Mergesort).
+- `utils/`: Utilidades para generación de datos, validación y Quicksort.
+- `scripts/`: Scripts de Bash para la recolección automatizada de datos.
 
-Si tienes `make` disponible:
+## Requisitos
+
+- Compilador `g++` con soporte para C++11 y OpenMP.
+- Herramienta `make`.
+- `perf` (Linux) para el análisis de hardware e IPC.
+
+## Compilación
+
+Para compilar todas las versiones y el validador:
 
 ```bash
 make
 ```
 
-## Ejecutar
+Esto generará el ejecutable `sort` y el ejecutable `validator`.
 
-```powershell
-.\sort.exe [n] [k] [granularity] [repetitions]
+## Ejecución Manual
+
+```bash
+./sort [n] [k] [granularity] [repetitions] [mode]
 ```
 
-Ejemplo:
+### Parámetros:
+- `n`: Tamaño del arreglo (ej. 67108864 para 2^26).
+- `k`: Cantidad de particiones para K-way (ej. 4).
+- `granularity`: Umbral de corte para tareas paralelas (recomendado: 4096).
+- `repetitions`: Número de veces que se ejecuta cada prueba para promediar.
+- `mode`: Selecciona el algoritmo a probar:
+  - `0`: Ejecutar batería de pruebas completa (Todos).
+  - `1`: Mergesort Secuencial.
+  - `2`: K-way Mergesort Secuencial.
+  - `4`: Mergesort Paralelo (Merge Secuencial).
+  - `6`: Versión Paralela Completa (K-way + Merge Path).
+  - `7`: Quicksort Paralelo.
 
-```powershell
-.\sort.exe 200000 4 4096 3
+## Reproducción de Experimentos
+
+Para reproducir los resultados presentados en el informe y generar los archivos CSV de métricas (`estudio_k.csv` y `reporte_final_v2.csv`):
+
+```bash
+chmod +x run_all_benchmark.sh
+./run_all_benchmark.sh
 ```
 
-Parametros:
+*Nota: Este script requiere permisos de root o configuración de `perf_event_paranoid` para capturar métricas de CPU.*
 
-- `n`: tamano del arreglo.
-- `k`: cantidad de particiones para el k-way mergesort.
-- `granularity`: umbral para pasar a una version secuencial.
-- `repetitions`: cantidad de repeticiones por configuracion de hebras.
+## Validación
 
-El programa reporta:
+Para verificar la corrección de todas las implementaciones frente a `std::sort`:
 
-- tiempos secuenciales;
-- tiempo, speedup y eficiencia para `p = 1, 2, 4, 8`;
-- resultados para merge paralelo, mergesort paralelo, k-way paralelo y version paralela completa.
+```bash
+make validate
+```

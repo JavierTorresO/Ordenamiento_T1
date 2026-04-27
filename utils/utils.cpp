@@ -2,56 +2,76 @@
 #include <cstdlib>
 #include <chrono>
 #include <vector>
+#include <algorithm>
+#include <omp.h>
 
-//Función para crear arreglos
 void generate_array(int* A, int n) {
     for (int i = 0; i < n; i++) {
         A[i] = rand() % 1000000;
     }
-} //arreglo A de tamaño n, con numeros random(entre 0 y 999999)
+}
 
-//Verificador de ordenamiento (de menor a mayor)
 bool is_sorted(const int* A, int n) {
     for (int i = 1; i < n; i++) {
         if (A[i] < A[i - 1]) return false;
     }
     return true;
-}//true si está ordenado, false si está desordenado 
+}
 
-//Medidor de tiempo
-double measure_time(void (*sort_func)(int*, int), int* A, int n) {
-    auto start = std::chrono::high_resolution_clock::now();
+// MERGE OPTIMIZADO: Sin asignaciones internas, usa buffer auxiliar externo
+void merge(int* A, int l, int mid, int r, int* aux) {
+    int i = l;
+    int j = mid + 1;
+    int k = l;
 
-    sort_func(A, n);
-
-    auto end = std::chrono::high_resolution_clock::now();
-
-    return std::chrono::duration<double>(end - start).count();
-}//cronometros de inicio y de fin, mide tiempo que demoró "sort_func"(para ordenar el arreglo)
-
-// Función merge auxiliar, combina 2 subarreglos ordenados
-void merge(int* A, int l, int mid, int r) {
-    int n1 = mid - l + 1; //subarreglo izq
-    int n2 = r - mid;  //subarreglo der
-
-    std::vector<int> L(n1), R(n2); //vector aux, para copiar datos
-    //copiarlos al arreglo izq (L=left)
-    for (int i = 0; i < n1; i++)
-        L[i] = A[l + i];
-    //copiarlo al arreglo der (D=right)
-    for (int j = 0; j < n2; j++)
-        R[j] = A[mid + 1 + j];
-
-    int i = 0, j = 0, k = l;
-    //merge de ambos en orden
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            A[k++] = L[i++];//toma del lado izq
+    while (i <= mid && j <= r) {
+        if (A[i] <= A[j]) {
+            aux[k++] = A[i++];
         } else {
-            A[k++] = R[j++];//o der
+            aux[k++] = A[j++];
         }
     }
-    //se copia todo lo que pudo llegar a sobrar en izq y der
-    while (i < n1) A[k++] = L[i++];
-    while (j < n2) A[k++] = R[j++];
+
+    while (i <= mid) aux[k++] = A[i++];
+    while (j <= r) aux[k++] = A[j++];
+
+    for (int idx = l; idx <= r; idx++) {
+        A[idx] = aux[idx];
+    }
+}
+
+// Implementación de Quicksort Paralelo para contraste (Pauta 3.7.1)
+void quicksort_rec(int* A, int l, int r, int granularity) {
+    if (l >= r) return;
+
+    int i = l, j = r;
+    int pivot = A[l + (r - l) / 2];
+
+    while (i <= j) {
+        while (A[i] < pivot) i++;
+        while (A[j] > pivot) j--;
+        if (i <= j) {
+            std::swap(A[i], A[j]);
+            i++;
+            j--;
+        }
+    }
+
+    if (r - l > granularity) {
+        #pragma omp task shared(A) firstprivate(l, j, granularity)
+        quicksort_rec(A, l, j, granularity);
+        #pragma omp task shared(A) firstprivate(i, r, granularity)
+        quicksort_rec(A, i, r, granularity);
+    } else {
+        if (l < j) quicksort_rec(A, l, j, granularity);
+        if (i < r) quicksort_rec(A, i, r, granularity);
+    }
+}
+
+void quicksort_parallel(int* A, int n, int granularity) {
+    #pragma omp parallel
+    {
+        #pragma omp single
+        quicksort_rec(A, 0, n - 1, granularity);
+    }
 }

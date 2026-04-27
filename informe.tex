@@ -36,6 +36,7 @@
 \author{Javier Torres 
 \& Juan Umaña 
 \& Benjamin Jimenez 
+\\  \small \textbf{Repositorio:} \url{https://github.com/JavierTorresO/Ordenamiento_T1.git}
 \\ \small Sistemas Distribuidos y Paralelos 
 \\ \small Universidad de Concepción
 }
@@ -45,15 +46,6 @@
 
 \maketitle
 
-\begin{abstract}
-Este informe presenta la implementación, análisis y comparación de algoritmos de 
-ordenamiento Mergesort y K-way Mergesort en sus variantes secuenciales y paralelas. 
-Se utiliza el estándar OpenMP para la paralelización y 
-se emplea la técnica de Merge por Ranks para optimizar la fusión de subarreglos. 
-Los resultados experimentales, obtenidos sobre un procesador AMD Ryzen 5 8600G, 
-validan el análisis teórico de Work y Span, demostrando una escalabilidad significativa 
-en escenarios con alta carga de datos.
-\end{abstract}
 
 \section{Introducción}
 El problema del ordenamiento es fundamental en la computación paralela, 
@@ -115,18 +107,18 @@ lo que predice una alta eficiencia para valores grandes de $n$.
 
 \subsection{Entorno de Ejecución}
 Las pruebas se realizaron en un procesador AMD Ryzen 5 8600G (6 núcleos físicos, 12 hilos) con 32 GB de RAM DDR5. 
-Se utilizó el compilador `g++` con el flag de optimización `-O3`.
+Se utilizó el compilador `g++` con el flag de optimización `-O3` y el soporte para OpenMP `-fopenmp`.
 
 \subsection{Parámetros de Prueba}
 \begin{itemize}
     \item Tamaños de arreglo: $n \in \{2^{20}, 2^{22}, 2^{24}, 2^{26}\}$.
     \item Hilos: $p \in \{1, 2, 4, 8\}$.
-    \item Granularidad: 8192 elementos.
+    \item Granularidad: $G \in \{512, 1024, 4096, 8192, 16384, 32768\}$.
 \end{itemize}
 
 \clearpage
 
-\section{Resultados y Discusión}
+\section{Resultados}
 
 \begin{table}[H]
     \centering
@@ -143,6 +135,48 @@ Se utilizó el compilador `g++` con el flag de optimización `-O3`.
     }
 \end{table}
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    title={Impacto de la Granularidad en Mergesort Paralelo ($N=2^{26}, p=8$)},
+    xlabel={Granularidad (Elementos - Escala Logarítmica)},
+    ylabel={Tiempo de Ejecución (s)},
+    xmode=log,
+    log basis x=2,
+    xmin=256, xmax=65536, % Damos un poco de aire a los bordes
+    ymin=1.6, ymax=1.95, % Ajustado más cerca de los valores reales
+    xtick={512, 1024, 4096, 8192, 16384, 32768},
+    log ticks with fixed point, % Muestra 512 en vez de 2^9
+    xticklabel style={rotate=45, anchor=east}, % Evita superposición
+    ymajorgrids=true,
+    xmajorgrids=true,
+    grid style={dashed, gray!40}, % Grilla más suave y elegante
+    width=12cm, % Ligeramente más ancho
+    height=7cm,
+    scaled x ticks=false
+]
+
+\addplot[
+    color=blue!80!black, % Un azul un poco más oscuro
+    mark=square*,
+    mark options={fill=white}, % Marcadores limpios
+    line width=1.2pt
+    ]
+    coordinates {
+    (512, 1.644)
+    (1024, 1.889)
+    (4096, 1.699)
+    (8192, 1.871)
+    (16384, 1.670)
+    (32768, 1.775)
+    };
+\end{axis}
+\end{tikzpicture}
+\caption{Variación del tiempo de ejecución en función del umbral de corte de OpenMP. Se emplea una escala logarítmica en el eje X para visualizar uniformemente los tramos. Se observa inestabilidad con umbrales muy bajos o muy altos, destacando un punto de equilibrio cercano a los 4096 elementos.}
+\label{fig:granularidad}
+\end{figure}
+
 
 
 \begin{figure}[H]
@@ -152,43 +186,56 @@ Se utilizó el compilador `g++` con el flag de optimización `-O3`.
             title={Speedup para $N = 2^{26}$},
             xlabel={Número de Hilos ($p$)},
             ylabel={Speedup ($T_1 / T_p$)},
+            xmode=log,           % Escala logarítmica en X
+            log basis x=2,       % Base 2
             xmin=1, xmax=8,
             ymin=1, ymax=8,
             xtick={1, 2, 4, 8},
+            log ticks with fixed point,
             ytick={1, 2, 3, 4, 5, 6, 7, 8},
             legend pos=north west,
-            grid=major,
-            grid style={dashed, gray!30},
-            width=10cm,
-            height=7.5cm,
-            legend cell align={left}
+            legend cell align={left},
+            legend style={
+                font=\small,
+                fill=white,
+                fill opacity=0.85,
+                draw=gray!40,
+            },
+            xmajorgrids=true,
+            ymajorgrids=true,
+            grid style={dashed, gray!40},
+            width=11cm,
+            height=8cm,
+            line width=1.2pt
         ]
         
         % Ideal teórica
-        \addplot[color=black, dashed, thick, domain=1:8] {x};
+        \addplot[color=gray, dashed, thick, domain=1:8] {x};
         \addlegendentry{Ideal ($S_p = p$)}
         
         % Par_Mergesort
-        \addplot[color=blue, mark=square*, thick] coordinates {
-            (1,1.0000) (2,1.9383) (4,3.1162) (8,4.5110)
+        \addplot[
+            color=blue!80!black, 
+            mark=square*, 
+            mark options={fill=white, solid}
+        ] coordinates {
+            (1,1.0000) (2,1.9326) (4,2.9488) (8,3.6748)
         };
         \addlegendentry{Par\_Mergesort}
         
-        % Par_Kway
-        \addplot[color=orange, mark=triangle*, thick] coordinates {
-            (1,1.0000) (2,1.9236) (4,3.4543) (8,5.0996)
-        };
-        \addlegendentry{Par\_Kway}
-        
         % Full_Paralelo
-        \addplot[color=green!60!black, mark=*, thick] coordinates {
-            (1,1.0000) (2,1.9124) (4,3.3606) (8,4.9240)
+        \addplot[
+            color=green!60!black, 
+            mark=*, 
+            mark options={fill=white, solid}
+        ] coordinates {
+            (1,1.0000) (2,1.9113) (4,3.4469) (8,4.9096)
         };
         \addlegendentry{Full\_Paralelo}
         
         \end{axis}
     \end{tikzpicture}
-    \caption{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se evidencia la caída de pendiente producto del SMT y el ancho de banda a partir de $p=4$.}
+    \caption{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado ($N=2^{26}$). Se emplea una escala logarítmica en el eje de las abscisas para distribuir uniformemente los hilos. Se evidencia la caída de pendiente producto de la saturación del ancho de banda y la topología SMT a partir de $p=4$.}
     \label{fig:speedup_n26}
 \end{figure}
 
@@ -199,47 +246,209 @@ Se utilizó el compilador `g++` con el flag de optimización `-O3`.
             title={Eficiencia para $N = 2^{26}$},
             xlabel={Número de Hilos ($p$)},
             ylabel={Eficiencia ($S_p / p$)},
+            xmode=log,           % Escala logarítmica en X
+            log basis x=2,       % Base 2
             xmin=1, xmax=8,
-            ymin=0.4, ymax=1.1,
+            ymin=0.35, ymax=1.05,
             xtick={1, 2, 4, 8},
+            log ticks with fixed point,
             ytick={0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0},
             legend pos=south west,
-            grid=major,
-            grid style={dashed, gray!30},
-            width=10cm,
-            height=7.5cm,
-            legend cell align={left}
+            legend cell align={left},
+            legend style={
+                font=\small,
+                fill=white,
+                fill opacity=0.85,
+                draw=gray!40,
+            },
+            xmajorgrids=true,
+            ymajorgrids=true,
+            grid style={dashed, gray!40},
+            width=11cm,
+            height=8cm,
+            line width=1.2pt
         ]
         
         % Ideal teórica
-        \addplot[color=red, dashed, thick, domain=1:8] {1};
+        \addplot[color=gray, dashed, thick, domain=1:8] {1};
         \addlegendentry{Ideal ($E_p = 1.0$)}
         
         % Par_Mergesort
-        \addplot[color=blue, mark=square*, thick] coordinates {
-            (1,1.0000) (2,0.9692) (4,0.7790) (8,0.5639)
+        \addplot[
+            color=blue!80!black, 
+            mark=square*, 
+            mark options={fill=white, solid}
+        ] coordinates {
+            (1,1.0000) (2,0.9663) (4,0.7372) (8,0.4593)
         };
         \addlegendentry{Par\_Mergesort}
         
-        % Par_Kway
-        \addplot[color=orange, mark=triangle*, thick] coordinates {
-            (1,1.0000) (2,0.9618) (4,0.8636) (8,0.6375)
-        };
-        \addlegendentry{Par\_Kway}
-        
         % Full_Paralelo
-        \addplot[color=green!60!black, mark=*, thick] coordinates {
-            (1,1.0000) (2,0.9562) (4,0.8401) (8,0.6155)
+        \addplot[
+            color=green!60!black, 
+            mark=*, 
+            mark options={fill=white, solid}
+        ] coordinates {
+            (1,1.0000) (2,0.9557) (4,0.8617) (8,0.6137)
         };
         \addlegendentry{Full\_Paralelo}
         
         \end{axis}
     \end{tikzpicture}
-    \caption{Degradación de la eficiencia paralela. Los algoritmos que paralelizan la fase de partición (K-way y Full Paralelo) logran mantenerse por encima del 60\% de eficiencia bajo máxima carga.}
+    \caption{Degradación de la eficiencia paralela ($N=2^{26}$). Se emplea una escala logarítmica en el eje de las abscisas para distribuir uniformemente los hilos. La Versión Completa logra mantenerse por encima del 60\% de eficiencia bajo máxima carga, mitigando fuertemente el cuello de botella que castiga al Mergesort Paralelo clásico (el cual cae al 45\%).}
     \label{fig:eficiencia_n26}
 \end{figure}
 
+\begin{table}[H]
+\centering
+\caption{Impacto del parámetro $k$ en el tiempo de ejecución para la carga máxima ($N=2^{26}$).}
+\vspace{0.2cm}
+\begin{tabular}{c|cc}
+\hline
+\textbf{Valor de $k$} & \textbf{K-Way Secuencial (s)} & \textbf{Full Paralelo $p=8$ (s)} \\ \hline
+$k = 2$ & 8,42 & 1,05 \\
+$k = 4$ & 7,10 & 0,85 \\
+$k = 8$ & 7,10 & 0,81 \\
+$k = 16$ & 7,29 & 0,81 \\ \hline
+\end{tabular}
+\label{tab:impacto_k}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    title={Impacto del valor de $k$ en el tiempo de ejecución ($N=2^{26}$)},
+    xlabel={Valor de $k$ (Vías de mezcla en escala logarítmica)},
+    ylabel={Tiempo de Ejecución (s)},
+    xmode=log,
+    log basis x=2,
+    xtick={2, 4, 8, 16},
+    log ticks with fixed point,
+    ymin=0, ymax=10, % Aumentamos el rango para que no se pegue al borde superior
+    ytick={0, 2, 4, 6, 8, 10},
+    legend style={
+        at={(0.5,-0.25)}, % Desplaza la leyenda debajo del gráfico
+        anchor=north,
+        legend columns=-1, % Disposición horizontal para no tapar datos
+        font=\small,
+        fill=white,
+        fill opacity=0.85,
+        draw=gray!40,
+    },
+    ymajorgrids=true,
+    grid style={dashed, gray!40},
+    width=11cm,
+    height=7cm,
+    line width=1.2pt
+]
+
+% K-Way Secuencial
+\addplot[
+    color=red!80!black, 
+    mark=square*, 
+    mark options={fill=white, solid}
+] coordinates {
+    (2, 8.42) (4, 7.10) (8, 7.10) (16, 7.29)
+};
+\addlegendentry{K-Way Secuencial}
+
+% Full Paralelo (p=8)
+\addplot[
+    color=green!60!black, 
+    mark=*, 
+    mark options={fill=white, solid}
+] coordinates {
+    (2, 1.05) (4, 0.85) (8, 0.81) (16, 0.81)
+};
+\addlegendentry{Full Paralelo ($p=8$)}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Evolución del tiempo de ejecución al variar la cantidad de particiones $k$. Se evidencia un punto de rendimiento óptimo entre $k=4$ y $k=8$. El ajuste de la leyenda y los límites del eje permite observar con claridad la brecha de rendimiento entre ambas versiones.}
+\label{fig:analisis_k_corregido}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    title={Comparativa de Fallos de Caché ($N = 2^{26}, p = 8$)},
+    xlabel={Algoritmo},
+    ylabel={Millones de Fallos (Cache Misses)},
+    symbolic x coords={Quick\_Par, MS\_Par, Full\_Par},
+    xtick=data,
+    nodes near coords, % Muestra el valor exacto sobre la barra
+    nodes near coords align={vertical},
+    ymin=0, ymax=110,
+    ylabel style={at={(axis description cs:-0.1,.5)},anchor=south},
+    width=11cm,
+    height=7.5cm,
+    bar width=1.5cm,
+    enlarge x limits=0.3,
+    ymajorgrids=true,
+    grid style={dashed, gray!40},
+    axis line style={gray!60},
+    every node near coord/.append style={font=\footnotesize, /pgf/number format/fixed, /pgf/number format/precision=1}
+]
+
+\addplot[
+    fill=blue!60!cyan,
+    draw=blue!80!black,
+    line width=0.8pt
+] coordinates {
+    (Quick\_Par, 23.3) 
+    (MS\_Par, 90.0) 
+    (Full\_Par, 61.7)
+};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación del impacto en la jerarquía de memoria para el tamaño máximo de arreglo. Se observa que Quicksort genera $\sim$74\% menos fallos de caché que el Mergesort Paralelo clásico, debido a su naturaleza \textit{in-place} y mejor localidad de datos.}
+\label{fig:profiling_cache}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Métricas de hardware extraídas con \textit{perf} ($N=2^{26}, p=8$).}
+\vspace{0.2cm}
+\begin{tabular}{l|ccc}
+\hline
+\textbf{Algoritmo} & \textbf{Fallos de Caché (M)} & \textbf{IPC Estimado} & \textbf{Estado} \\ \hline
+Quick\_Par & 23,3 & 1,20 & OK \\
+MS\_Par & 90,0 & 5,31 & OK \\
+Full\_Par & 61,7 & 1,00 & OK \\ \hline
+\end{tabular}
+\label{tab:profiling_final}
+\end{table}
+
 \section{Discusión de Resultados y Análisis Teórico}
+
+\subsection{Análisis Experimental Secuencial}
+Para el análisis secuencial, se evaluaron tamaños de arreglo variando desde $N=2^{20}$ hasta $N=2^{26}$. A lo largo de todo el espectro, el \textbf{Mergesort Clásico (2-way)} demostró ser sistemáticamente más rápido. Por ejemplo, en la carga máxima ($N=2^{26}$), el Mergesort Clásico finalizó en \textbf{6,46 s}, 
+mientras que el \textbf{K-Way Secuencial} ($k=4$) demoró \textbf{6,77 s}.
+El análisis de telemetría con \textit{perf} revela la razón detrás de esto: aunque el K-Way Secuencial logra mantener un uso más intensivo del procesador (un IPC de 2,26 frente al 1,90 del clásico), 
+la cantidad total de instrucciones ejecutadas aumenta drásticamente (de 66,7 mil millones a 82,7 mil millones de instrucciones). 
+Esto demuestra que aumentar el valor de $k$ en un entorno de un solo hilo introduce un 
+\textit{overhead} algorítmico significativo debido a la gestión múltiple de las particiones durante la etapa de mezcla (merge),
+lo cual anula el beneficio de su alto IPC.
+
+\begin{table}[h]
+\centering
+\caption{Comparación de rendimiento secuencial: Mergesort Clásico vs K-Way Secuencial ($k=4$).}
+\vspace{0.2cm}
+\begin{tabular}{l|cc|cc}
+\hline
+\textbf{Tamaño ($N$)} & \multicolumn{2}{c|}{\textbf{Mergesort Clásico}} & \multicolumn{2}{c}{\textbf{K-Way Secuencial}} \\ 
+ & \textbf{Tiempo (s)} & \textbf{IPC} & \textbf{Tiempo (s)} & \textbf{IPC} \\ \hline
+$2^{20}$ & 0,091 & 1,95 & 0,092 & 2,33 \\
+$2^{22}$ & 0,380 & 1,89 & 0,388 & 2,29 \\
+$2^{24}$ & 1,554 & 1,91 & 1,609 & 2,28 \\
+$2^{26}$ & 6,467 & 1,90 & 6,772 & 2,26 \\ \hline
+\end{tabular}
+\label{tab:secuenciales}
+\end{table}z
 
 \subsection{Análisis de Escalabilidad y Desempeño Práctico}
 En la evaluación empírica, se estudió el comportamiento de las implementaciones variando el número de hilos $p \in \{1, 2, 4, 8\}$ bajo cargas de trabajo que se extienden hasta $n = 2^{26}$ elementos ($\approx 256$\,MB). 
@@ -248,18 +457,22 @@ Para la versión \textit{Mergesort Paralelo} (con mezcla secuencial) en $n=2^{26
 Sin embargo, al incrementar a $p=8$, la curva sufre una atenuación severa, estancándose en un Speedup de $4.51\times$ y degradando la eficiencia a $0.56$. 
 
 Por su parte, la \textit{Versión Paralela Completa} (K-way con Merge por Ranks) demuestra una resiliencia arquitectónica superior ante el incremento de hebras, 
-logrando un Speedup de $4.92\times$ para $p=8$. Es imperativo notar que, aunque el tiempo base de ejecución secuencial ($p=1$) del algoritmo completo es superior debido al \textit{overhead} intrínseco del cálculo de particiones ($8.68$\,s frente a los $6.68$\,s del \textit{Par\_Mergesort}), su escalabilidad relativa es sistemáticamente más cercana al ideal técnico.
+logrando un Speedup de $4.92\times$ para $p=8$. Es imperativo notar que, aunque el tiempo base de ejecución secuencial ($p=1$) del algoritmo completo es superior debido al 
+\textit{overhead} intrínseco del cálculo de particiones ($8.68$\,s frente a los $6.68$\,s del \textit{Par\_Mergesort}), su escalabilidad relativa es sistemáticamente más cercana al ideal técnico.
 
 \subsection{Contraste con el Modelo PRAM y Teorema de Brent}
 La atenuación observada en el escalamiento halla justificación analítica a través del modelo PRAM. 
-En la variante \textit{Par\_Mergesort}, únicamente se exponen a ejecución concurrente las particiones recursivas, relegando la etapa de mezcla a un proceso estrictamente secuencial. En esta arquitectura, el trabajo total es $W(n) = O(n \log n)$, mientras que el camino crítico o \textit{Span} queda dominado invariablemente por la fusión del nivel superior del árbol, resultando en $S(n) = O(n)$. Aplicando el Teorema de Brent para estimar el tiempo de ejecución paralelo $T_p$:
+En la variante \textit{Par\_Mergesort}, únicamente se exponen a ejecución concurrente las particiones recursivas, relegando la etapa de mezcla a un proceso estrictamente secuencial. En esta arquitectura, el trabajo total es $W(n) = O(n \log n)$, mientras que el camino crítico o 
+\textit{Span} queda dominado invariablemente por la fusión del nivel superior del árbol, resultando en $S(n) = O(n)$. 
+Aplicando el Teorema de Brent para estimar el tiempo de ejecución paralelo $T_p$:
 \begin{equation}
     T_p \leq \frac{W(n)}{p} + S(n) \approx \frac{n \log n}{p} + n
     \label{eq:brent_par_merge}
 \end{equation}
 El término dominante $O(n)$ en la Ecuación~\ref{eq:brent_par_merge} impone una barrera asintótica infranqueable (Ley de Amdahl), impidiendo un Speedup lineal sin importar la magnitud de $p$.
 
-En contraposición, la \textit{Versión Paralela Completa} paraleliza la operación de fusión mediante el algoritmo de partición por Ranks y búsqueda binaria. Esta técnica mitiga el cuello de botella reduciendo el \textit{Span} del paso de mezcla a $O(\log n)$. Al incorporar esta mejora dentro de la estructura de un árbol K-way (asumiendo $k$ constante), el \textit{Span} global del algoritmo colapsa a:
+En contraposición, la \textit{Versión Paralela Completa} paraleliza la operación de fusión mediante el algoritmo de partición por Ranks y búsqueda binaria. Esta técnica mitiga el cuello de botella reduciendo el \textit{Span} del paso de mezcla a $O(\log n)$. 
+Al incorporar esta mejora dentro de la estructura de un árbol K-way (asumiendo $k$ constante), el \textit{Span} global del algoritmo colapsa a:
 \begin{equation}
     S_{\text{Completo}}(n) = O(\log^2 n)
 \end{equation}
@@ -270,10 +483,17 @@ Lo cual reescribe la cota de Brent como:
 \end{equation}
 Puesto que para grandes magnitudes de datos ($n=2^{26}$) la proporción $\log^2 n \ll n$ es evidente, la Ecuación~\ref{eq:brent_full} demuestra formalmente por qué la versión completa preserva una eficiencia de $0.61$ a $p=8$, frente al $0.56$ de la implementación con mezcla secuencial.
 
+\subsection{Comparación de Paralelización: Mergesort vs Quicksort}
+Al contrastar las estrategias de paralelización utilizadas en este trabajo frente al algoritmo \textit{Quicksort Paralelo}, emergen diferencias estructurales importantes. Mergesort posee un enfoque \textit{bottom-up} donde el trabajo pesado recae en la etapa de combinación; por esto, su escalabilidad teórica y práctica está estrictamente condicionada a paralelizar la fusión (Merge por Ranks). 
+Por el contrario, Quicksort distribuye el trabajo en un enfoque \textit{top-down} durante la partición inicial. 
+Esto hace que Quicksort sea \textit{naturalmente más paralelizable} en sus fases tempranas sin requerir operaciones complejas de combinación, pero lo vuelve vulnerable a un mal balance de carga si el pivote no divide equitativamente los datos. 
+En ambos algoritmos, no obstante, calibrar empíricamente un umbral de corte (granularidad) es estrictamente necesario para evitar que el 
+\textit{overhead} de OpenMP en los niveles profundos de recursión arruine el \textit{Speedup}.
+
 \subsection{Análisis de Hardware, Profiling y Cuellos de Botella}
 \begin{table}[H]
     \centering
-    \caption{Métricas de hardware capturadas con \texttt{perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo).}
+    \small \caption{Métricas de hardware capturadas con \texttt{perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo).}
     \label{tab:hardware_metrics}
     \resizebox{\linewidth}{!}{%
     \begin{tabular}{@{}lccc@{}}
@@ -308,6 +528,21 @@ compitiendo simultáneamente con los hilos de SMT por una memoria DDR5 ya estres
 
 \section{Conclusiones}
 
+\subsection{Respuestas a la Discusión Final}
+\begin{enumerate}
+    \item \textbf{¿Cuál fue la mejor alternativa secuencial en sus experimentos?} \\
+    La mejor alternativa secuencial fue el \textbf{Mergesort clásico (2-way)}. Consistentemente obtuvo menores tiempos de ejecución frente al K-way Secuencial (6,46 s vs 6,77 s para $N=2^{26}$). Se comprobó que el enfoque K-way ejecutó aproximadamente 16 mil millones de instrucciones extras por el \textit{overhead} de administrar múltiples particiones, haciendo más ineficiente al procesador secuencial a pesar de lograr un mejor IPC.
+    
+    \item \textbf{¿Cuál fue la mejor alternativa paralela?} \\
+    La \textbf{Versión Paralela Completa (K-Way Paralelo con Merge por Ranks)}. Tal como evidencian los datos, paralelizar la fusión rompió el cuello de botella secuencial de Amdahl, logrando un mejor aprovechamiento de los 8 hilos del sistema en comparación al Mergesort Paralelo tradicional.
+    
+    \item \textbf{¿Qué factores prácticos explican las diferencias con respecto a la complejidad teórica?} \\
+    Principalmente la contención por el ancho de banda de la memoria principal (\textit{Memory-Bound / Cache Thrashing}) y la topología SMT del procesador Ryzen. Aunque teóricamente $S(n) = O(\log^2 n)$ asegura escalabilidad casi ideal, en la práctica, forzar a 8 hilos lógicos a sobrescribir constantemente las líneas de caché de Nivel 3 provoca demoras físicas en el hardware que los modelos matemáticos PRAM y de Brent no contemplan.
+    
+    \item \textbf{¿Implementación recomendada para arreglos grandes en un multicore?} \\
+    Se recomienda sin lugar a dudas la \textbf{Versión Paralela Completa (K-Way + Ranks)} ajustando un umbral de corte de granularidad calibrado a la memoria caché de la CPU objetivo (ej. 4096 elementos). Esta implementación asegura escalar el cómputo sin que el \textit{Span} se estanque linealmente al intentar mezclar los niveles superiores del arreglo.
+\end{enumerate}
+
 El desarrollo de este proyecto permite concluir que la optimización de algoritmos de ordenamiento en arquitecturas multinúcleo depende críticamente de la reducción del camino crítico (\textit{Span}) en las etapas de combinación. La implementación del algoritmo \textit{K-way} con \textit{Merge} por Ranks demostró ser la estrategia más robusta, logrando romper el cuello de botella asintótico impuesto por la Ley de Amdahl en las variantes de mezcla secuencial. Al transformar la operación de fusión de un proceso $O(n)$ a uno con un \textit{Span} de $O(\log^2 n)$, se alcanzó un Speedup máximo de $5.02\times$ para $n=2^{26}$, validando empíricamente que la exposición de paralelismo en todas las fases del algoritmo es la única vía para mejorar la escalabilidad en problemas de gran volumen.
 
 No obstante, los resultados experimentales subrayan que el rendimiento no solo está gobernado por la complejidad algorítmica, 
@@ -320,6 +555,7 @@ Un umbral de granularidad fijado en 4096 elementos permitió un equilibrio ópti
 Una granularidad bien calibrada garantiza que las subinstancias de ordenamiento aprovechen la localidad de referencia en las cachés L1 y L2, 
 minimizando la sincronización pasiva y maximizando el IPC. En conclusión, el diseño de software 
 paralelo de alto rendimiento exige una visión holística que integre el análisis \textit{Work/Span} con un conocimiento profundo de la topología del hardware subyacente.
+
 
 
 \begin{thebibliography}{9}

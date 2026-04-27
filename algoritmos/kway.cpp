@@ -1,62 +1,51 @@
 #include "kway.h"
 #include <vector>
+#include <algorithm>
 #include "utils/utils.h"
 
-// función recursiva k-way
-void kway_rec(int* A, int l, int r, int k) {
+struct Block {
+    int l, r;
+};
+
+void kway_rec(int* A, int l, int r, int k, int* aux) {
     if (l >= r) return;
 
     int n = r - l + 1;
+    int parts = std::max(2, k);
+    int base = n / parts;
+    int remainder = n % parts;
 
-    // tamaño base de cada bloque, repartimiento equitativo
-    int block_size = n / k;
-    int remainder = n % k; //los primeros "remainder" bloques bloques reciben uno mas para evitar desbalance
-
-    std::vector<int> starts(k);
-    std::vector<int> ends(k);
-
+    std::vector<Block> blocks(parts);
     int current = l;
 
-    // dividir en k subarreglos
-    for (int i = 0; i < k; i++) {
-        int size = block_size + (i < remainder ? 1 : 0);
-
-        starts[i] = current;
-        ends[i] = current + size - 1;
-
+    for (int i = 0; i < parts; i++) {
+        int size = base + (i < remainder ? 1 : 0);
+        blocks[i] = {current, current + size - 1};
         current += size;
     }
 
-    // ordenar cada subarreglo recursivamente
-    for (int i = 0; i < k; i++) {
-        if (starts[i] <= ends[i]) { //aqui controlamos bloques vacios
-            kway_rec(A, starts[i], ends[i], k);
+    for (int i = 0; i < parts; i++) {
+        if (blocks[i].l <= blocks[i].r) {
+            kway_rec(A, blocks[i].l, blocks[i].r, k, aux);
         }
     }
 
-    // merge en cadena
-    for (int i = 1; i < k; i++) {
-        if (starts[i] <= ends[i]) {
-            merge(A, l, ends[i-1], ends[i]);
+    // MERGE POR TORNEO (Consistente con versión paralela)
+    std::vector<Block> current_blocks;
+    for (const auto& b : blocks) if (b.l <= b.r) current_blocks.push_back(b);
+
+    while (current_blocks.size() > 1) {
+        std::vector<Block> next_blocks;
+        for (size_t i = 0; i + 1 < current_blocks.size(); i += 2) {
+            merge(A, current_blocks[i].l, current_blocks[i].r, current_blocks[i+1].r, aux);
+            next_blocks.push_back({current_blocks[i].l, current_blocks[i+1].r});
         }
+        if (current_blocks.size() % 2 == 1) next_blocks.push_back(current_blocks.back());
+        current_blocks = next_blocks;
     }
 }
 
-
-// interfaz principal
 void kway_mergesort(int* A, int n, int k) {
-    kway_rec(A, 0, n - 1, k);
+    std::vector<int> aux(n);
+    kway_rec(A, 0, n - 1, k, aux.data());
 }
-
-//divide en k partes, profundidad: logₖ(n) más chica pero el Merge es más caro (entre k mayor->profundidad menor->costo merge mayor)
-
-/*
-kway_mergesort(A, l, r):
-1. dividir en k partes
-2. llamar recursivamente a cada parte
-3. hacer merge de las k parte 
-    Funcionará como un merge en cadena: 
-    (A1 + A2) → T1
-    (T1 + A3) → T2
-    (T2 + A4) → ...
-*/

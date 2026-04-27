@@ -13,32 +13,47 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Descripción de Algoritmos}{1}{section.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Mergesort Secuencial y Paralelo}{1}{subsection.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Merge Paralelo por Ranks}{1}{subsection.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}K-way Mergesort}{2}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}K-way Mergesort}{1}{subsection.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Análisis Teórico}{2}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Modelo PRAM y Work/Span}{2}{subsection.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Teorema de Brent}{2}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}Metodología Experimental}{2}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Entorno de Ejecución}{2}{subsection.4.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Parámetros de Prueba}{2}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Resultados y Discusión}{3}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Resultados}{3}{section.5}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Rendimiento de los algoritmos paralelos utilizando $p=8$ hilos frente a su ejecución base ($p=1$) para un tamaño de arreglo $N = 2^{26}$.}}{3}{table.1}\protected@file@percent }
 \newlabel{tab:rendimiento_n26}{{1}{3}{Rendimiento de los algoritmos paralelos utilizando $p=8$ hilos frente a su ejecución base ($p=1$) para un tamaño de arreglo $N = 2^{26}$}{table.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se evidencia la caída de pendiente producto del SMT y el ancho de banda a partir de $p=4$.}}{3}{figure.1}\protected@file@percent }
-\newlabel{fig:speedup_n26}{{1}{3}{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado. Se evidencia la caída de pendiente producto del SMT y el ancho de banda a partir de $p=4$}{figure.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Degradación de la eficiencia paralela. Los algoritmos que paralelizan la fase de partición (K-way y Full Paralelo) logran mantenerse por encima del 60\% de eficiencia bajo máxima carga.}}{4}{figure.2}\protected@file@percent }
-\newlabel{fig:eficiencia_n26}{{2}{4}{Degradación de la eficiencia paralela. Los algoritmos que paralelizan la fase de partición (K-way y Full Paralelo) logran mantenerse por encima del 60\% de eficiencia bajo máxima carga}{figure.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Discusión de Resultados y Análisis Teórico}{4}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Análisis de Escalabilidad y Desempeño Práctico}{4}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Contraste con el Modelo PRAM y Teorema de Brent}{4}{subsection.6.2}\protected@file@percent }
-\newlabel{eq:brent_par_merge}{{1}{5}{Contraste con el Modelo PRAM y Teorema de Brent}{equation.6.1}{}}
-\newlabel{eq:brent_full}{{3}{5}{Contraste con el Modelo PRAM y Teorema de Brent}{equation.6.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Análisis de Hardware, Profiling y Cuellos de Botella}{5}{subsection.6.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Métricas de hardware capturadas con \texttt  {perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo).}}{5}{table.2}\protected@file@percent }
-\newlabel{tab:hardware_metrics}{{2}{5}{Métricas de hardware capturadas con \texttt {perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo)}{table.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Saturación del Ancho de Banda y \textit  {Cache Thrashing}:}{5}{section*.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Variación del tiempo de ejecución en función del umbral de corte de OpenMP. Se emplea una escala logarítmica en el eje X para visualizar uniformemente los tramos. Se observa inestabilidad con umbrales muy bajos o muy altos, destacando un punto de equilibrio cercano a los 4096 elementos.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:granularidad}{{1}{3}{Variación del tiempo de ejecución en función del umbral de corte de OpenMP. Se emplea una escala logarítmica en el eje X para visualizar uniformemente los tramos. Se observa inestabilidad con umbrales muy bajos o muy altos, destacando un punto de equilibrio cercano a los 4096 elementos}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado ($N=2^{26}$). Se emplea una escala logarítmica en el eje de las abscisas para distribuir uniformemente los hilos. Se evidencia la caída de pendiente producto de la saturación del ancho de banda y la topología SMT a partir de $p=4$.}}{4}{figure.2}\protected@file@percent }
+\newlabel{fig:speedup_n26}{{2}{4}{Escalabilidad de los algoritmos para el tamaño máximo de arreglo analizado ($N=2^{26}$). Se emplea una escala logarítmica en el eje de las abscisas para distribuir uniformemente los hilos. Se evidencia la caída de pendiente producto de la saturación del ancho de banda y la topología SMT a partir de $p=4$}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Degradación de la eficiencia paralela ($N=2^{26}$). Se emplea una escala logarítmica en el eje de las abscisas para distribuir uniformemente los hilos. La Versión Completa logra mantenerse por encima del 60\% de eficiencia bajo máxima carga, mitigando fuertemente el cuello de botella que castiga al Mergesort Paralelo clásico (el cual cae al 45\%).}}{4}{figure.3}\protected@file@percent }
+\newlabel{fig:eficiencia_n26}{{3}{4}{Degradación de la eficiencia paralela ($N=2^{26}$). Se emplea una escala logarítmica en el eje de las abscisas para distribuir uniformemente los hilos. La Versión Completa logra mantenerse por encima del 60\% de eficiencia bajo máxima carga, mitigando fuertemente el cuello de botella que castiga al Mergesort Paralelo clásico (el cual cae al 45\%)}{figure.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Impacto del parámetro $k$ en el tiempo de ejecución para la carga máxima ($N=2^{26}$).}}{5}{table.2}\protected@file@percent }
+\newlabel{tab:impacto_k}{{2}{5}{Impacto del parámetro $k$ en el tiempo de ejecución para la carga máxima ($N=2^{26}$)}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Evolución del tiempo de ejecución al variar la cantidad de particiones $k$. Se evidencia un punto de rendimiento óptimo entre $k=4$ y $k=8$. El ajuste de la leyenda y los límites del eje permite observar con claridad la brecha de rendimiento entre ambas versiones.}}{5}{figure.4}\protected@file@percent }
+\newlabel{fig:analisis_k_corregido}{{4}{5}{Evolución del tiempo de ejecución al variar la cantidad de particiones $k$. Se evidencia un punto de rendimiento óptimo entre $k=4$ y $k=8$. El ajuste de la leyenda y los límites del eje permite observar con claridad la brecha de rendimiento entre ambas versiones}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Comparación del impacto en la jerarquía de memoria para el tamaño máximo de arreglo. Se observa que Quicksort genera $\sim $74\% menos fallos de caché que el Mergesort Paralelo clásico, debido a su naturaleza \textit  {in-place} y mejor localidad de datos.}}{6}{figure.5}\protected@file@percent }
+\newlabel{fig:profiling_cache}{{5}{6}{Comparación del impacto en la jerarquía de memoria para el tamaño máximo de arreglo. Se observa que Quicksort genera $\sim $74\% menos fallos de caché que el Mergesort Paralelo clásico, debido a su naturaleza \textit {in-place} y mejor localidad de datos}{figure.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Métricas de hardware extraídas con \textit  {perf} ($N=2^{26}, p=8$).}}{6}{table.3}\protected@file@percent }
+\newlabel{tab:profiling_final}{{3}{6}{Métricas de hardware extraídas con \textit {perf} ($N=2^{26}, p=8$)}{table.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discusión de Resultados y Análisis Teórico}{6}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Análisis Experimental Secuencial}{6}{subsection.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparación de rendimiento secuencial: Mergesort Clásico vs K-Way Secuencial ($k=4$).}}{7}{table.4}\protected@file@percent }
+\newlabel{tab:secuenciales}{{4}{7}{Comparación de rendimiento secuencial: Mergesort Clásico vs K-Way Secuencial ($k=4$)}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Análisis de Escalabilidad y Desempeño Práctico}{7}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Contraste con el Modelo PRAM y Teorema de Brent}{7}{subsection.6.3}\protected@file@percent }
+\newlabel{eq:brent_par_merge}{{1}{7}{Contraste con el Modelo PRAM y Teorema de Brent}{equation.6.1}{}}
+\newlabel{eq:brent_full}{{3}{7}{Contraste con el Modelo PRAM y Teorema de Brent}{equation.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Comparación de Paralelización: Mergesort vs Quicksort}{8}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Análisis de Hardware, Profiling y Cuellos de Botella}{8}{subsection.6.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Métricas de hardware capturadas con \texttt  {perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo).}}{8}{table.5}\protected@file@percent }
+\newlabel{tab:hardware_metrics}{{5}{8}{Métricas de hardware capturadas con \texttt {perf} para la carga máxima ($N = 2^{26}$) ejecutando con 8 hilos (vs Secuencial a 1 hilo)}{table.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Saturación del Ancho de Banda y \textit  {Cache Thrashing}:}{8}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusiones}{9}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Respuestas a la Discusión Final}{9}{subsection.7.1}\protected@file@percent }
 \bibcite{openmp}{1}
 \bibcite{kumar}{2}
 \bibcite{amd}{3}
 \bibcite{mergepath}{4}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusiones}{6}{section.7}\protected@file@percent }
-\gdef \@abspage@last{7}
+\gdef \@abspage@last{10}
